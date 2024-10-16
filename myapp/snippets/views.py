@@ -11,6 +11,7 @@ from rest_framework import generics
 from snippets.serializers import UserSerializer
 
 from rest_framework import permissions
+from snippets.permissions import  IsOwnerOrReadOnly
 
 class snippetList(APIView):
     """
@@ -38,7 +39,8 @@ class snippetDetail(APIView):
     """
     Retrieve, update or delete a code snippet.
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     def get_object(self,pk):
         try:
             return Snippet.objects.get(pk=pk)
