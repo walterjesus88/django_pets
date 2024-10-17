@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework import routers, viewsets, serializers
 from django.contrib import admin
 
-#from . import views
+from . import views
 
 
 # #serializers define the api representation
@@ -39,4 +39,5 @@ urlpatterns = [
 # Agregamos el inicio de sesión y cierre de sesión de la API
 urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
+   
 ]
