@@ -20,7 +20,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 # from rest_framework import renderers
-# from snippets.views import api_root, SnippetViewSet, UserViewSet
 
 # snippet_list = SnippetViewSet.as_view({
 #     'get': 'list',
@@ -59,6 +58,8 @@ from rest_framework.routers import DefaultRouter
 
 from snippets import views
 
+
+
 # Create a router and register our ViewSets with it.
 router = DefaultRouter()
 router.register(r'snippets', views.SnippetViewSet, basename='snippet')
@@ -67,4 +68,5 @@ router.register(r'users', views.UserViewSet, basename='user')
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
+  
 ]

@@ -4,3 +4,4 @@ psycopg2
 markdown
 django-filter
 pygments
+djangorestframework-simplejwt

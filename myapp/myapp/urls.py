@@ -31,9 +31,21 @@ from . import views
 # ]
 
 
+from snippets.views import RegisterView
+from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('snippets.urls')),  # Aquí se incluyen las URLs de tu aplicación
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/register/', RegisterView.as_view(), name='register'),
 ]
 
 # Agregamos el inicio de sesión y cierre de sesión de la API
