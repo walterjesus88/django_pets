@@ -18,6 +18,7 @@ from rest_framework.reverse import reverse
 from rest_framework import renderers
 
 from rest_framework import viewsets
+from .models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
 # class SnippetList(APIView):
 #     """
@@ -81,6 +82,7 @@ from rest_framework import viewsets
 
 from rest_framework.decorators import action
 
+
 class SnippetViewSet(viewsets.ModelViewSet):
     """
     This ViewSet automatically provides `list`, `create`, `retrieve`,
@@ -99,6 +101,15 @@ class SnippetViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        response.data = {
+            'snippets': response.data,
+            'language_choices': LANGUAGE_CHOICES,
+            'style_choices': STYLE_CHOICES,
+        }
+        return response
 
 # class UserList(generics.ListAPIView):
 #     queryset = User.objects.all()
