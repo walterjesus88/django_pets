@@ -5,3 +5,4 @@ markdown
 django-filter
 pygments
 djangorestframework-simplejwt
+django-cors-headers
