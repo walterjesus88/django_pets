@@ -23,6 +23,11 @@ class Snippet(models.Model):
     #owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
     highlighted = models.TextField()
     owner = models.ForeignKey(User, related_name='snippets', on_delete=models.CASCADE)
+
+    precio = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    imagen = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    stock = models.IntegerField(default=0)
+
     class Meta:
         ordering = ['created']
 

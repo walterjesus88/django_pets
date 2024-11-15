@@ -92,7 +92,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
     """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
 
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def highlight(self, request, *args, **kwargs):
@@ -134,8 +134,13 @@ class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        print('request.data')
+        print(request.data)
         username = request.data.get('username')
         password = request.data.get('password')
+        first_name = request.data.get('firstname')
+        last_name = request.data.get('lastname')
+        email = request.data.get('email')
 
         if not username or not password:
             return Response({"error": "Username and password are required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -143,7 +148,7 @@ class RegisterView(APIView):
         if User.objects.filter(username=username).exists():
             return Response({"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password,first_name=first_name,last_name=last_name,email=email)
         return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])

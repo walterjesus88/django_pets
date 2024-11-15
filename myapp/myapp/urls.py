@@ -30,6 +30,8 @@ from . import views
 #     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 # ]
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 from snippets.views import RegisterView
 from django.urls import path
@@ -42,7 +44,8 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('snippets.urls')),  # Aquí se incluyen las URLs de tu aplicación
+    path('api/snippets/', include('snippets.urls')),  # Ruta para tu aplicación 'snippets'
+    path('api/ecommerce/', include('ecommerce.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', RegisterView.as_view(), name='register'),
@@ -53,3 +56,6 @@ urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
    
 ]
+
+if settings.DEBUG:  # Solo para desarrollo, NO en producción
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
